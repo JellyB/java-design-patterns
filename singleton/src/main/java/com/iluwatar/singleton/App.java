@@ -25,6 +25,8 @@ package com.iluwatar.singleton;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.lang.reflect.Constructor;
+
 /**
  * Singleton pattern ensures that the class can have only one existing instance per Java classloader
  * instance and provides global access to it.
@@ -77,6 +79,16 @@ public class App {
     IvoryTower ivoryTower2 = IvoryTower.getInstance();
     LOGGER.info("ivoryTower1={}", ivoryTower1);
     LOGGER.info("ivoryTower2={}", ivoryTower2);
+    // reflect test singleton;
+    try{
+      Class clazz = Class.forName("com.iluwatar.singleton.IvoryTower");
+      Constructor[] cs = clazz.getDeclaredConstructors();
+      cs[0].setAccessible(true);
+      IvoryTower IvoryTower3 = (IvoryTower)cs[0].newInstance();
+      LOGGER.info("IvoryTower3={}", IvoryTower3);
+    }catch (Exception e){
+      LOGGER.error(e.getMessage(), e);
+    }
 
     // lazily initialized singleton
     ThreadSafeLazyLoadedIvoryTower threadSafeIvoryTower1 =

@@ -28,12 +28,23 @@ package com.iluwatar.singleton;
  * This implementation is thread safe, however adding any other method and its thread safety
  * is developers responsibility.
  */
-public enum EnumIvoryTower {
+public enum EnumIvoryTower implements SingletonInterface{
 
-  INSTANCE;
+  INSTANCE {
+    @Override
+    public String doSomething() {
+      System.err.println("*****");
+      return "hello singleton";
+    }
+  };
 
   @Override
   public String toString() {
     return getDeclaringClass().getCanonicalName() + "@" + hashCode();
+  }
+
+  public EnumIvoryTower getInstance(){
+    INSTANCE.doSomething();
+    return EnumIvoryTower.INSTANCE;
   }
 }
