@@ -95,8 +95,20 @@ public class App {
         ThreadSafeLazyLoadedIvoryTower.getInstance();
     ThreadSafeLazyLoadedIvoryTower threadSafeIvoryTower2 =
         ThreadSafeLazyLoadedIvoryTower.getInstance();
+
     LOGGER.info("threadSafeIvoryTower1={}", threadSafeIvoryTower1);
     LOGGER.info("threadSafeIvoryTower2={}", threadSafeIvoryTower2);
+
+    try{
+      Class clazz = Class.forName("com.iluwatar.singleton.ThreadSafeLazyLoadedIvoryTower");
+      Constructor[] cst = clazz.getDeclaredConstructors();
+      cst[0].setAccessible(true);
+      ThreadSafeLazyLoadedIvoryTower threadSafeIvoryTower3 = (ThreadSafeLazyLoadedIvoryTower)cst[0].newInstance();
+      LOGGER.info("threadSafeIvoryTower3={}", threadSafeIvoryTower3);
+    }catch (Exception e){
+      LOGGER.error(e.getMessage());
+    }
+
 
     // enum singleton
     EnumIvoryTower enumIvoryTower1 = EnumIvoryTower.INSTANCE;
