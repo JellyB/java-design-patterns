@@ -1,5 +1,10 @@
 package com.iluwatar.singleton.practice;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.lang.reflect.Constructor;
+
 /**
  * 描述：线程安全的Singleton类。该实例被懒加载，因此需要同步锁机制
  *
@@ -7,6 +12,7 @@ package com.iluwatar.singleton.practice;
  * Create time 2018-10-22 下午4:04
  **/
 public final class LazySingleton {
+    private static Logger logger = LoggerFactory.getLogger(LazySingleton.class);
     private static LazySingleton instance = null;
 
     /**
@@ -30,5 +36,26 @@ public final class LazySingleton {
             return new LazySingleton();
         }
         return instance;
+    }
+
+    public static void main(String[] args) {
+        /**
+         * LazySingleton
+         */
+        try{
+            LazySingleton lazySingleton1 = LazySingleton.getInstance();
+            LazySingleton lazySingleton2 = LazySingleton.getInstance();
+            logger.info("LazySingleton:{}", lazySingleton1);
+            logger.info("LazySingleton:{}", lazySingleton2);
+            Class clazz = Class.forName("com.iluwatar.singleton.practice.LazySingleton");
+            Constructor[] cst = clazz.getDeclaredConstructors();
+            cst[0].setAccessible(true);
+            LazySingleton lazySingleton3 = (LazySingleton)cst[0].newInstance();
+            logger.info("LazySingleton:{}", lazySingleton3);
+        }catch (Exception e){
+            logger.error(e.getMessage(), e);
+        }
+
+
     }
 }
