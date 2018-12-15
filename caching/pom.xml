@@ -58,6 +58,12 @@
       <artifactId>bson</artifactId>
       <version>3.0.4</version>
     </dependency>
+      <dependency>
+          <groupId>com.google.guava</groupId>
+          <artifactId>guava</artifactId>
+          <version>19.0</version>
+          <scope>test</scope>
+      </dependency>
   </dependencies>
   <!--
     Due to the use of MongoDB in the test of this pattern, TRAVIS and/or MAVEN might fail if the DB connection is
